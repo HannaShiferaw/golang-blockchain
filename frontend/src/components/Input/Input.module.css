@@ -1,0 +1,28 @@
+.wrap {
+  display: grid;
+  gap: 6px;
+}
+
+.label {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.input {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 10px 12px;
+  border-radius: 12px;
+  outline: none;
+}
+
+.input:focus {
+  border-color: rgba(74, 163, 255, 0.55);
+}
+
+.hint {
+  font-size: 12px;
+  color: var(--muted);
+}
+

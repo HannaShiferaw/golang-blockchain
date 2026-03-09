@@ -1,0 +1,63 @@
+services:
+  couchdb:
+    image: couchdb:3
+    container_name: coffee_couchdb
+    environment:
+      - COUCHDB_USER=${COUCHDB_USER:-admin}
+      - COUCHDB_PASSWORD=${COUCHDB_PASSWORD:-admin}
+    ports:
+      - "5984:5984"
+    volumes:
+      - couchdb_data:/opt/couchdb/data
+
+  postgres:
+    image: postgres:16
+    container_name: coffee_postgres
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB:-coffee_demo}
+      - POSTGRES_USER=${POSTGRES_USER:-coffee}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-coffee}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: coffee_backend
+    environment:
+      - BACKEND_PORT=${BACKEND_PORT:-8080}
+      - SEED_ON_START=${SEED_ON_START:-true}
+      - COUCHDB_URL=${COUCHDB_URL:-http://couchdb:5984}
+      - COUCHDB_USER=${COUCHDB_USER:-admin}
+      - COUCHDB_PASSWORD=${COUCHDB_PASSWORD:-admin}
+      - COUCHDB_DB=${COUCHDB_DB:-coffee_ledger}
+      - POSTGRES_HOST=${POSTGRES_HOST:-postgres}
+      - POSTGRES_PORT=${POSTGRES_PORT:-5432}
+      - POSTGRES_DB=${POSTGRES_DB:-coffee_demo}
+      - POSTGRES_USER=${POSTGRES_USER:-coffee}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-coffee}
+    ports:
+      - "8080:8080"
+    depends_on:
+      - couchdb
+      - postgres
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: coffee_frontend
+    environment:
+      - VITE_BACKEND_BASE_URL=${BACKEND_BASE_URL:-http://localhost:8080}
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+
+volumes:
+  couchdb_data:
+  pg_data:
+
