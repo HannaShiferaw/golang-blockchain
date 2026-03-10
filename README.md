@@ -1,10 +1,10 @@
-# Coffee Export Consortium Blockchain (Demo)
+Coffee Export Consortium Blockchain (Demo)
 
-End-to-end demo of a **consortium blockchain workflow** for nationwide coffee export in Ethiopia, with 5 stakeholders:
+End-to-end demo of a consortium blockchain workflow  with 5 stakeholders:
 
 - Exporter
 - Buyer
-- Commercial Bank of Ethiopia (CBE)
+- Bank 
 - Customs
 - Shipment / Logistics
 
@@ -15,12 +15,12 @@ This repo contains:
 
 ## What this demo enforces
 
-- **PKI & signatures**: every action is a signed transaction by the stakeholder certificate.
-- **Smart contract state machine**: the export process advances only when the required stakeholder verifies/approves.
-- **Immutable audit**: transactions are appended into a block chain (hash-linked) stored in CouchDB.
-- **Queryable data**: key fields are indexed into Postgres for fast filtering/reporting.
+- PKI & signatures: every action is a signed transaction by the stakeholder certificate.
+- Smart contract state machine: the export process advances only when the required stakeholder verifies/approves.
+- Immutable audit: transactions are appended into a block chain (hash-linked) stored in CouchDB.
+- Queryable data: key fields are indexed into Postgres for fast filtering/reporting.
 
-## Quick start (Docker)
+ Quick start (Docker)
 
 Prereqs: Docker Desktop + `docker compose`.
 
